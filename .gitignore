@@ -1,0 +1,6 @@
+.idea
+/silhoutte-maker/.idea
+/webapp/.idea
+
+/silhoutte-maker/.venv
+/silhoutte-maker/src/raw_player_images

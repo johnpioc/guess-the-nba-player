@@ -21,8 +21,8 @@ player_codes = [
     "derozde01",  # DeMar DeRozan (Chicago Bulls)
     "vucevni01",  # Nikola Vučević (Chicago Bulls)
     "mitchdo01",  # Donovan Mitchell (Cleveland Cavaliers)
-    "garland01",  # Darius Garland (Cleveland Cavaliers)
-    "moblee01",  # Evan Mobley (Cleveland Cavaliers)
+    "garlada01",  # Darius Garland (Cleveland Cavaliers)
+    "mobleev01",  # Evan Mobley (Cleveland Cavaliers)
     "cunnica01",  # Cade Cunningham (Detroit Pistons)
     "iveyja01",  # Jaden Ivey (Detroit Pistons)
     "thompau01",  # Ausar Thompson (Detroit Pistons)
@@ -35,14 +35,14 @@ player_codes = [
     "antetgi01",  # Giannis Antetokounmpo (Milwaukee Bucks)
     "lillada01",  # Damian Lillard (Milwaukee Bucks)
     "portibo01",  # Bobby Portis (Milwaukee Bucks)
-    "brunsonj01",  # Jalen Brunson (New York Knicks)
+    "brunsja01",  # Jalen Brunson (New York Knicks)
     "randlju01",  # Julius Randle (New York Knicks)
-    "barretj01",  # RJ Barrett (New York Knicks)
+    "barrerj01",  # RJ Barrett (New York Knicks)
     "banchpa01",  # Paolo Banchero (Orlando Magic)
     "wagnefr01",  # Franz Wagner (Orlando Magic)
     "cartewe01",  # Wendell Carter Jr. (Orlando Magic)
-    "embiidj01",  # Joel Embiid (Philadelphia 76ers)
-    "maxety01",  # Tyrese Maxey (Philadelphia 76ers)
+    "embiijo01",  # Joel Embiid (Philadelphia 76ers)
+    "maxeyty01",  # Tyrese Maxey (Philadelphia 76ers)
     "harrito02",  # Tobias Harris (Philadelphia 76ers)
     "siakapa01",  # Pascal Siakam (Toronto Raptors)
     "barnesc01",  # Scottie Barnes (Toronto Raptors)
@@ -54,22 +54,22 @@ player_codes = [
     "irvinky01",  # Kyrie Irving (Dallas Mavericks)
     "willigr01",  # Grant Williams (Dallas Mavericks)
     "jokicni01",  # Nikola Jokić (Denver Nuggets)
-    "murrayja01",  # Jamal Murray (Denver Nuggets)
+    "murraja01",  # Jamal Murray (Denver Nuggets)
     "portemi01",  # Michael Porter Jr. (Denver Nuggets)
     "curryst01",  # Stephen Curry (Golden State Warriors)
-    "thompsk01",  # Klay Thompson (Golden State Warriors)
+    "thompkl01",  # Klay Thompson (Golden State Warriors)
     "greendr01",  # Draymond Green (Golden State Warriors)
-    "vanvlf01",  # Fred VanVleet (Houston Rockets)
+    "vanvlfr01",  # Fred VanVleet (Houston Rockets)
     "greenja05",  # Jalen Green (Houston Rockets)
     "sengual01",  # Alperen Şengün (Houston Rockets)
     "leonaka01",  # Kawhi Leonard (Los Angeles Clippers)
-    "georpau01",  # Paul George (Los Angeles Clippers)
+    "georgpa01",  # Paul George (Los Angeles Clippers)
     "westbru01",  # Russell Westbrook (Los Angeles Clippers)
     "jamesle01",  # LeBron James (Los Angeles Lakers)
     "davisan02",  # Anthony Davis (Los Angeles Lakers)
     "reaveau01",  # Austin Reaves (Los Angeles Lakers)
     "moranja01",  # Ja Morant (Memphis Grizzlies)
-    "jackja02",  # Jaren Jackson Jr. (Memphis Grizzlies)
+    "jacksja02",  # Jaren Jackson Jr. (Memphis Grizzlies)
     "banede01",  # Desmond Bane (Memphis Grizzlies)
     "edwaran01",  # Anthony Edwards (Minnesota Timberwolves)
     "townska01",  # Karl-Anthony Towns (Minnesota Timberwolves)
@@ -97,16 +97,18 @@ player_codes = [
     "clarkjo01",  # Jordan Clarkson (Utah Jazz)
 ]
 
-
-
 ssl_context = ssl.create_default_context(cafile=certifi.where())
 os.makedirs('raw_player_images', exist_ok=True)
 
-
 url_template = "https://www.basketball-reference.com/req/202106291/images/headshots/{0}.jpg"
+raw_player_images_folder_path = "raw_player_images/"
 
 for player_code in player_codes:
     url = url_template.format(player_code, player_code)
-    with urllib.request.urlopen(url, context=ssl_context) as response:
-        with open(f"{player_code}.jpg", 'wb') as out_file:
-            out_file.write(response.read())
+    try:
+        with urllib.request.urlopen(url, context=ssl_context) as response:
+            file_path = os.path.join(raw_player_images_folder_path, f"{player_code}.jpg")
+            with open(file_path, 'wb') as out_file:
+                out_file.write(response.read())
+    except:
+        print(url)
