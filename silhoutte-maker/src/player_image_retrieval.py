@@ -103,6 +103,8 @@ os.makedirs('raw_player_images', exist_ok=True)
 url_template = "https://www.basketball-reference.com/req/202106291/images/headshots/{0}.jpg"
 raw_player_images_folder_path = "raw_player_images/"
 
+os.makedirs(raw_player_images_folder_path, exist_ok=True)
+
 for player_code in player_codes:
     url = url_template.format(player_code, player_code)
     try:
